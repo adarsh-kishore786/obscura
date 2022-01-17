@@ -3,19 +3,21 @@ import styles from "../Styles/Playground.module.css";
 
 class Playground extends React.Component {
     state = {
-        text: ""
+        text: "",
+        words: ""
     }
 
-    onPressed = (event) => {
+    onKeyPress = (event) => {
         event.preventDefault();
         this.setState({text: event.target.value});
     }
 
     onSubmit = (event) => {
         event.preventDefault();
-        const words = this.state.text;
-        console.log(words);
-        this.setState({text: ""});
+        const w = this.state.text;
+        console.log(w);
+        this.setState({text: "", words: w});
+
     }
 
     render() {
@@ -24,8 +26,11 @@ class Playground extends React.Component {
                 <div className={styles.top}>
                     Playtime!
                 </div>
+                <div className={styles.words}>
+                    {this.state.words}
+                </div>
                 <form className={styles.main} onSubmit={this.onSubmit}>
-                    <input type="text" value={this.state.text} onChange={this.onPressed} />
+                    <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autofocus/>
                 </form>
             </div>
         );
