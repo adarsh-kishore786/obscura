@@ -4,7 +4,8 @@ import styles from "../Styles/Playground.module.css";
 class Playground extends React.Component {
     state = {
         text: "",
-        words: ""
+        words: "",
+        visible: false
     }
 
     onKeyPress = (event) => {
@@ -16,8 +17,10 @@ class Playground extends React.Component {
         event.preventDefault();
         const w = this.state.text;
         console.log(w);
-        this.setState({text: "", words: w});
-
+        this.setState({text: "", words: w, visible: true});
+        setTimeout(() => {
+            this.setState({visible: false});
+        }, 1000);
     }
 
     render() {
@@ -26,11 +29,11 @@ class Playground extends React.Component {
                 <div className={styles.top}>
                     Playtime!
                 </div>
-                <div className={styles.words}>
+                <div className={`${styles.words} ${this.state.visible ? styles.visible : styles.invisible}`}>
                     {this.state.words}
                 </div>
                 <form className={styles.main} onSubmit={this.onSubmit}>
-                    <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autofocus/>
+                    <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autoFocus/>
                 </form>
             </div>
         );
