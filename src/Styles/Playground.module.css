@@ -11,6 +11,13 @@
     padding: 50px;
 }
 
+.infoBoard {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
 .words {
     background: repeating-linear-gradient(58deg, #999, #300a24, #00f 35px);
     margin-top: 50px;
