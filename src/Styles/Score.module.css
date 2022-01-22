@@ -5,4 +5,7 @@
     padding: 30px;
     background-color: teal;
     color: #fff;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }

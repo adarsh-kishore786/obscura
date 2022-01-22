@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import "../Styles/Reset.css";
 
 import Header from "./Header";

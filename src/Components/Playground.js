@@ -3,6 +3,7 @@ import styles from "../Styles/Playground.module.css";
 
 import HeartBar from "./HeartBar";
 import Score from "./Score";
+import Word from "./Word";
 
 class Playground extends React.Component {
     state = {
@@ -32,14 +33,15 @@ class Playground extends React.Component {
             <div className={styles.playground}>
                 <div className={styles.infoBoard}>
                     <HeartBar />
-                    <Score score={this.state.score}/>
-                </div>
-                <div className={`${styles.words} ${this.state.visible ? styles.visible : styles.invisible}`}>
+                    <div className={`${styles.words} ${this.state.visible ? styles.visible : styles.invisible}`}>
                     {this.state.words}
+                    </div>
+                    <Score score={this.props.seconds}/>
                 </div>
                 <form className={styles.main} onSubmit={this.onSubmit}>
                     <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autoFocus/>
                 </form>
+                <Word />
             </div>
         );
     }

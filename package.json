@@ -7,9 +7,13 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "an-array-of-english-words": "^2.0.0",
+    "hooked-react-stopwatch": "^1.5.1",
     "react": "^17.0.2",
+    "react-clock": "^3.0.0",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
+    "react-timer-hook": "^3.0.5",
     "web-vitals": "^2.1.3"
   },
   "scripts": {
