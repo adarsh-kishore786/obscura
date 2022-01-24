@@ -1,10 +1,20 @@
 .word {
     position: absolute;
-    bottom: 500px;
+    top: 0;
     border: 2px solid red;
     border-radius: 10%;
     padding: 10px;
     background-color: red;
     color: #ddd;
     box-sizing: border-box;
+    animation: moveDown 5s linear;
+}
+
+@keyframes moveDown {
+  from {
+    top: 0;
+  }
+  to {
+    top: 100vh;
+  }
 }

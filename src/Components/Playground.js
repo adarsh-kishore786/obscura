@@ -5,12 +5,20 @@ import HeartBar from "./HeartBar";
 import Score from "./Score";
 import Word from "./Word";
 
+function getRandomNumberBetween(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 class Playground extends React.Component {
+    words = [ 'Amul', 'Mega Tower', 'Vindhya', 'Satpura', 'Nilgiris', 'Aravali', 'Karavali', 'Himachal', 'Kailash', 'Everest', 'Nescafe', 'Library', 'Sports', 'Complex', "Girls' Block", 'Mess', 'Canteen', 'Beach'];
+
     state = {
         text: "",
         words: "",
         visible: false,
         score: 0,
+        found: false,
+        word: `${this.words[getRandomNumberBetween(0, this.words.length)]}`,
     }
 
     onKeyPress = (event) => {
@@ -21,8 +29,10 @@ class Playground extends React.Component {
     onSubmit = (event) => {
         event.preventDefault();
         const w = this.state.text;
-        console.log(w);
         this.setState({text: "", words: w, visible: true});
+        if (w.toLowerCase() === this.state.word.toLowerCase()) {
+            this.setState({found: true});
+        }
         setTimeout(() => {
             this.setState({visible: false, score: this.state.score+1});
         }, 1000);
@@ -41,7 +51,7 @@ class Playground extends React.Component {
                 <form className={styles.main} onSubmit={this.onSubmit}>
                     <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autoFocus/>
                 </form>
-                <Word />
+                <Word found={this.state.found} word={this.state.word}/>
             </div>
         );
     }

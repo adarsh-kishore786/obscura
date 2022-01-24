@@ -1,17 +1,26 @@
 import React from "react";
 import styles from "../Styles/Word.module.css";
+import ReactCSSTransitionGroup from 'react-transition-group';
 
-function getRandomNumberBetween(min,max){
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
+class Word extends React.Component {
+    onAnimationEnd() {
+        console.log("Ended!");
+    }
 
-const Word = () => {
-    let words = require('an-array-of-english-words').filter((word) => word.length <= 5);
-    return (
-        <div className={styles.word}>
-            {words[getRandomNumberBetween(0, words.length)]}
-        </div>
-    );
+    render() {
+        if (!this.props.found) {
+            return (
+                <div className={styles.word}>
+                    {this.props.word}
+                </div>
+            );
+        }
+        else {
+            return (
+                <></>
+            );
+        }
+    }
 }
 
 export default Word;
