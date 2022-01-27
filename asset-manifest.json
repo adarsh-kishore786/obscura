@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/obscura/static/css/main.c052407c.css",
-    "main.js": "/obscura/static/js/main.947ef068.js",
+    "main.css": "/obscura/static/css/main.a24f1916.css",
+    "main.js": "/obscura/static/js/main.5b24426e.js",
     "index.html": "/obscura/index.html",
-    "main.c052407c.css.map": "/obscura/static/css/main.c052407c.css.map",
-    "main.947ef068.js.map": "/obscura/static/js/main.947ef068.js.map"
+    "main.a24f1916.css.map": "/obscura/static/css/main.a24f1916.css.map",
+    "main.5b24426e.js.map": "/obscura/static/js/main.5b24426e.js.map"
   },
   "entrypoints": [
-    "static/css/main.c052407c.css",
-    "static/js/main.947ef068.js"
+    "static/css/main.a24f1916.css",
+    "static/js/main.5b24426e.js"
   ]
 }
