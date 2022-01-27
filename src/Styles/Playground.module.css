@@ -3,12 +3,11 @@
     flex-direction: column;
     box-sizing: border-box;
     width: 100%;
-    margin-top: 85px;
     min-height: 100vh;
     background: radial-gradient(#000, #1ae);
     align-items: center;
     font-size: 36px;
-    padding: 50px;
+    padding: 85px 50px 0 50px;
 }
 
 .infoBoard {

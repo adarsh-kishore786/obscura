@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "../Styles/Playground.module.css";
 
 import HeartBar from "./HeartBar";
@@ -18,6 +18,7 @@ class Playground extends React.Component {
         visible: false,
         score: 0,
         found: false,
+        lives: 5,
         word: `${this.words[getRandomNumberBetween(0, this.words.length)]}`,
     }
 
@@ -38,11 +39,25 @@ class Playground extends React.Component {
         }, 1000);
     }
 
+    nextWord = () => {
+        this.setState({
+            word: `${this.words[getRandomNumberBetween(0, this.words.length)]}`,
+            found: false,
+        });
+    }
+
+    reduceLife = () => {
+        this.setState({found: true, lives: this.state.lives-1});
+        if (this.state.lives != 0) {
+            this.nextWord();
+        }
+    }
+
     render() {
         return (
             <div className={styles.playground}>
                 <div className={styles.infoBoard}>
-                    <HeartBar />
+                    <HeartBar lives={this.state.lives}/>
                     <div className={`${styles.words} ${this.state.visible ? styles.visible : styles.invisible}`}>
                     {this.state.words}
                     </div>
@@ -51,7 +66,10 @@ class Playground extends React.Component {
                 <form className={styles.main} onSubmit={this.onSubmit}>
                     <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autoFocus/>
                 </form>
-                <Word found={this.state.found} word={this.state.word}/>
+                <Word
+                    found={this.state.found}
+                    word={this.state.word}
+                    reduceLife={this.reduceLife}/>
             </div>
         );
     }

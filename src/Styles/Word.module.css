@@ -8,6 +8,7 @@
     color: #ddd;
     box-sizing: border-box;
     animation: moveDown 5s linear;
+    animation-iteration-count: infinite;
 }
 
 @keyframes moveDown {
@@ -15,6 +16,6 @@
     top: 0;
   }
   to {
-    top: 100vh;
+    top: 97vh;
   }
 }
