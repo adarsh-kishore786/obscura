@@ -7,10 +7,12 @@
     background-color: red;
     color: #ddd;
     box-sizing: border-box;
+}
+
+.animation {
     animation: moveDown 5s linear;
     animation-iteration-count: infinite;
 }
-
 @keyframes moveDown {
   from {
     top: 0;

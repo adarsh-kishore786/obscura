@@ -1,35 +1,35 @@
 import React from "react";
 import styles from "../Styles/Word.module.css";
-import ReactCSSTransitionGroup from 'react-transition-group';
 
 class Word extends React.Component {
-
     state = {
-        left: `${Math.floor(Math.random() * 100)}vw`,
+        left: `${Math.floor(Math.random() * 90)}vw`,
+        animation: true
     }
 
     onAnimationEnd = () => {
-        this.props.reduceLife();
-        this.setState({ left: `${Math.floor(Math.random() * 100)}vw`});
+        this.props.reduceLife(false);
+        this.setState({ left: `${Math.floor(Math.random() * 90)}vw`});
     }
 
     render() {
-        if (!this.props.found) {
-            return (
-                <div
-                    className={styles.word}
-                    onAnimationIteration={this.onAnimationEnd}
-                    style={{left: `${this.state.left}`}}
-                >
-                    {this.props.word}
-                </div>
-            );
+        if (this.props.found) {
+            this.setState({animation: false})
+            setTimeout(() => {
+                this.setState({animation: true});
+            }, 200);
+            this.props.reduceLife(true);
+            this.setState({ left: `${Math.floor(Math.random() * 90)}vw`});
         }
-        else {
-            return (
-                <></>
-            );
-        }
+        return (
+            <div
+                className={`${styles.word} ${this.state.animation ? styles.animation : ""}`}
+                onAnimationIteration={this.onAnimationEnd}
+                style={{left: `${this.state.left}`}}
+            >
+                {this.props.word}
+            </div>
+        );
     }
 }
 

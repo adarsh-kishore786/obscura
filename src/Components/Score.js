@@ -18,6 +18,10 @@ const Score = (props) => {
         return 3600*hours + 60*minutes + seconds;
     }
 
+    function getTime() {
+        return [hours, minutes, seconds];
+    }
+
     return (
         <div className={styles.container}>
             <div>Time elapsed:</div>

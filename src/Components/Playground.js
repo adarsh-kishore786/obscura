@@ -4,22 +4,22 @@ import styles from "../Styles/Playground.module.css";
 import HeartBar from "./HeartBar";
 import Score from "./Score";
 import Word from "./Word";
+import GameOver from "./GameOver";
 
 function getRandomNumberBetween(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 class Playground extends React.Component {
-    words = [ 'Amul', 'Mega Tower', 'Vindhya', 'Satpura', 'Nilgiris', 'Aravali', 'Karavali', 'Himachal', 'Kailash', 'Everest', 'Nescafe', 'Library', 'Sports', 'Complex', "Girls' Block", 'Mess', 'Canteen', 'Beach'];
+    words = [ 'Amul', 'Mega Tower', 'Vindhya', 'Satpura', 'Nilgiris', 'Aravali', 'Karavali', 'Himachal', 'Kailash', 'Everest', 'Nescafe', 'Library', 'Sports', 'Complex', 'Mess', 'Canteen', 'Beach', 'Nandini', 'SAC', 'FNH', 'Samudra', 'Darshan', 'Underpass', 'Department', 'ISTE', 'Club', 'Red Rock', 'Pabbas', 'Forum Fiza', 'Surathkal', 'Mangalore', 'Dean'];
 
     state = {
         text: "",
         words: "",
         visible: false,
-        score: 0,
         found: false,
         lives: 5,
-        word: `${this.words[getRandomNumberBetween(0, this.words.length)]}`,
+        word: `${this.words[getRandomNumberBetween(0, this.words.length-1)]}`,
     }
 
     onKeyPress = (event) => {
@@ -35,27 +35,29 @@ class Playground extends React.Component {
             this.setState({found: true});
         }
         setTimeout(() => {
-            this.setState({visible: false, score: this.state.score+1});
+            this.setState({visible: false});
         }, 1000);
     }
 
     nextWord = () => {
         this.setState({
-            word: `${this.words[getRandomNumberBetween(0, this.words.length)]}`,
+            word: `${this.words[getRandomNumberBetween(0, this.words.length-1)]}`,
             found: false,
         });
     }
 
-    reduceLife = () => {
-        this.setState({found: true, lives: this.state.lives-1});
+    reduceLife = (win) => {
+        if (!win)
+            this.setState({found: true, lives: this.state.lives-1});
         if (this.state.lives != 0) {
             this.nextWord();
         }
     }
 
-    render() {
-        return (
-            <div className={styles.playground}>
+    playGame = () => {
+        if (this.state.lives > 0) {
+            return (
+                <>
                 <div className={styles.infoBoard}>
                     <HeartBar lives={this.state.lives}/>
                     <div className={`${styles.words} ${this.state.visible ? styles.visible : styles.invisible}`}>
@@ -70,6 +72,21 @@ class Playground extends React.Component {
                     found={this.state.found}
                     word={this.state.word}
                     reduceLife={this.reduceLife}/>
+                </>
+            );
+        }
+        else {
+            return (
+                <GameOver />
+            );
+        }
+        // return <GameOver />;
+    }
+
+    render() {
+        return (
+            <div className={styles.playground}>
+                {this.playGame()}
             </div>
         );
     }
