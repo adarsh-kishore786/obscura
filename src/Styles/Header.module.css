@@ -13,3 +13,10 @@
     margin-bottom: 20px;
     box-shadow: 0 0 5px #fff;
 }
+
+.button {
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    border: none;
+}

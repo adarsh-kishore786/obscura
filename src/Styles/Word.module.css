@@ -10,7 +10,7 @@
 }
 
 .animation {
-    animation: moveDown 4s linear;
+    animation: moveDown 3s linear;
     animation-iteration-count: infinite;
 }
 @keyframes moveDown {

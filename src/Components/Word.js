@@ -17,7 +17,7 @@ class Word extends React.Component {
             this.setState({animation: false})
             setTimeout(() => {
                 this.setState({animation: true});
-            }, 200);
+            }, 100);
             this.props.nextRound(true);
             this.setState({ left: `${Math.floor(Math.random() * 90)}vw`});
         }

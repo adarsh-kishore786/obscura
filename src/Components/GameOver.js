@@ -16,7 +16,7 @@ class GameOver extends React.Component {
                 I hope that was fun for you!
                 </>
             );
-        } else if (score <= 30) {
+        } else if (score <= 20) {
             return (
                 <>
                 <img src={State2} width={200} />

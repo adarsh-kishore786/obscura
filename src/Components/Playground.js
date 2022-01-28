@@ -5,6 +5,7 @@ import HeartBar from "./HeartBar";
 import Score from "./Score";
 import Word from "./Word";
 import GameOver from "./GameOver";
+import Instructions from "./Instructions";
 
 function getRandomNumberBetween(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -20,8 +21,7 @@ class Playground extends React.Component {
         found: false,
         lives: 3,
         score: 0,
-        status: "playing",
-        pause: false,
+        status: "instructions",
         word: `${this.words[getRandomNumberBetween(0, this.words.length-1)]}`,
     }
 
@@ -66,15 +66,11 @@ class Playground extends React.Component {
             words: "",
             visible: false,
             found: false,
-            lives: 3,
+            lives: 5,
             score: 0,
             status: "playing",
             word: `${this.words[getRandomNumberBetween(0, this.words.length-1)]}`,
         });
-    }
-
-    toggleGame = () => {
-        this.setState({pause: !this.state.pause});
     }
 
     playGame = () => {
@@ -89,13 +85,14 @@ class Playground extends React.Component {
                     <Score score={this.state.score}/>
                 </div>
                 <form className={styles.main} onSubmit={this.onSubmit}>
-                    <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autoFocus/>
+                    <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress}
+                        style={{pointerEvents: `${this.props.pause ? "none" : ""}`}} autoFocus/>
                 </form>
                 <Word
                     found={this.state.found}
                     word={this.state.word}
                     nextRound={this.nextRound}
-                    pause={this.state.pause} />
+                    pause={this.props.pause} />
                 </>
             );
         }
@@ -106,8 +103,9 @@ class Playground extends React.Component {
                     restart={this.resetGame}
                 />
             );
+        } else if (this.state.status === "instructions") {
+            return <Instructions startGame={this.resetGame}/>;
         }
-        // return <GameOver />;
     }
 
     render() {
