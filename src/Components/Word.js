@@ -8,7 +8,7 @@ class Word extends React.Component {
     }
 
     onAnimationEnd = () => {
-        this.props.reduceLife(false);
+        this.props.nextRound(false);
         this.setState({ left: `${Math.floor(Math.random() * 90)}vw`});
     }
 
@@ -18,12 +18,12 @@ class Word extends React.Component {
             setTimeout(() => {
                 this.setState({animation: true});
             }, 200);
-            this.props.reduceLife(true);
+            this.props.nextRound(true);
             this.setState({ left: `${Math.floor(Math.random() * 90)}vw`});
         }
         return (
             <div
-                className={`${styles.word} ${this.state.animation ? styles.animation : ""}`}
+                className={`${styles.word} ${this.state.animation && !this.props.pause ? styles.animation : ""}`}
                 onAnimationIteration={this.onAnimationEnd}
                 style={{left: `${this.state.left}`}}
             >

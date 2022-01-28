@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "../Styles/Playground.module.css";
 
 import HeartBar from "./HeartBar";
@@ -11,14 +11,17 @@ function getRandomNumberBetween(min,max){
 }
 
 class Playground extends React.Component {
-    words = [ 'Amul', 'Mega Tower', 'Vindhya', 'Satpura', 'Nilgiris', 'Aravali', 'Karavali', 'Himachal', 'Kailash', 'Everest', 'Nescafe', 'Library', 'Sports', 'Complex', 'Mess', 'Canteen', 'Beach', 'Nandini', 'SAC', 'FNH', 'Samudra', 'Darshan', 'Underpass', 'Department', 'ISTE', 'Club', 'Red Rock', 'Pabbas', 'Forum Fiza', 'Surathkal', 'Mangalore', 'Dean'];
+    words = [ 'Amul', 'Mega Tower', 'Vindhya', 'Satpura', 'Nilgiris', 'Aravali', 'Karavali', 'Himachal', 'Kailash', 'Everest', 'Nescafe', 'Library', 'Sports', 'Complex', 'Mess', 'Canteen', 'Beach', 'Nandini', 'SAC', 'FNH', 'Samudra', 'Darshan', 'Underpass', 'Department', 'ISTE', 'Club', 'Red Rock', 'Pabbas', 'Forum Fiza', 'Surathkal', 'Mangalore', 'Dean', 'Obscura', 'Square One'];
 
     state = {
         text: "",
         words: "",
         visible: false,
         found: false,
-        lives: 5,
+        lives: 3,
+        score: 0,
+        status: "playing",
+        pause: false,
         word: `${this.words[getRandomNumberBetween(0, this.words.length-1)]}`,
     }
 
@@ -32,7 +35,7 @@ class Playground extends React.Component {
         const w = this.state.text;
         this.setState({text: "", words: w, visible: true});
         if (w.toLowerCase() === this.state.word.toLowerCase()) {
-            this.setState({found: true});
+            this.setState({found: true, score: this.state.score+1});
         }
         setTimeout(() => {
             this.setState({visible: false});
@@ -46,16 +49,36 @@ class Playground extends React.Component {
         });
     }
 
-    reduceLife = (win) => {
-        if (!win)
+    nextRound = (win) => {
+        if (!win) {
             this.setState({found: true, lives: this.state.lives-1});
-        if (this.state.lives != 0) {
+            if (this.state.lives === 1) {
+                this.setState({status: "over"});
+            }
+        } else {
             this.nextWord();
         }
     }
 
+    resetGame = () => {
+        this.setState({
+            text: "",
+            words: "",
+            visible: false,
+            found: false,
+            lives: 3,
+            score: 0,
+            status: "playing",
+            word: `${this.words[getRandomNumberBetween(0, this.words.length-1)]}`,
+        });
+    }
+
+    toggleGame = () => {
+        this.setState({pause: !this.state.pause});
+    }
+
     playGame = () => {
-        if (this.state.lives > 0) {
+        if (this.state.status === "playing") {
             return (
                 <>
                 <div className={styles.infoBoard}>
@@ -63,7 +86,7 @@ class Playground extends React.Component {
                     <div className={`${styles.words} ${this.state.visible ? styles.visible : styles.invisible}`}>
                     {this.state.words}
                     </div>
-                    <Score score={this.props.seconds}/>
+                    <Score score={this.state.score}/>
                 </div>
                 <form className={styles.main} onSubmit={this.onSubmit}>
                     <input type="text" value={this.state.text} className={styles.text} onChange={this.onKeyPress} autoFocus/>
@@ -71,13 +94,17 @@ class Playground extends React.Component {
                 <Word
                     found={this.state.found}
                     word={this.state.word}
-                    reduceLife={this.reduceLife}/>
+                    nextRound={this.nextRound}
+                    pause={this.state.pause} />
                 </>
             );
         }
-        else {
+        else if (this.state.status === "over"){
             return (
-                <GameOver />
+                <GameOver
+                    score={this.state.score}
+                    restart={this.resetGame}
+                />
             );
         }
         // return <GameOver />;
